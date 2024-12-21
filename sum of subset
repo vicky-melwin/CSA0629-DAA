@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+void findSubsets(int set[], int subset[], int n, int sum, int subsetSize, int startIndex) {
+    if (sum == 0) {
+        printf("Subset is: ");
+        for (int i = 0; i < subsetSize; i++) {
+            printf("%d ", subset[i]);
+        }
+        printf("\n");
+        return;
+    }
+
+    for (int i = startIndex; i < n; i++) {
+        if (sum - set[i] >= 0) {
+            subset[subsetSize] = set[i];
+            findSubsets(set, subset, n, sum - set[i], subsetSize + 1, i + 1);
+        }
+    }
+}
+
+int main() {
+    int set[] = {6, 2, 8, 1, 5};
+    int n = sizeof(set) / sizeof(set[0]);
+    int sum = 9;
+    int subset[n];
+    
+    printf("Input set: {6, 2, 8, 1, 5}, Sum = 9\n");
+    findSubsets(set, subset, n, sum, 0, 0);
+    return 0;
+}
